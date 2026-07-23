@@ -1,6 +1,6 @@
 # BlueprintJS Development Skill
 
-[![skills.sh](https://skills.sh/b/Daniil-Hirchyts/blueprintjs-development-skill)](https://skills.sh/Daniil-Hirchyts/blueprintjs-development-skill/blueprintjs)
+[![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-111827)](#install)
 
 > Unofficial community skill for BlueprintJS development. BlueprintJS is maintained by Palantir Technologies.
 
@@ -41,6 +41,8 @@ npx skills add https://github.com/Daniil-Hirchyts/blueprintjs-development-skill 
 ```
 
 The repository is structured as a single installable skill at the repository root. The main skill loads deeper references only when the task requires them.
+
+The official skills.sh install-count badge becomes available only after the repository contains a valid skill and has been discovered through a successful CLI installation.
 
 ## Manual usage
 
