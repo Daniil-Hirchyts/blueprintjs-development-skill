@@ -1,0 +1,39 @@
+name: Publish complete skill package
+
+on:
+  push:
+    paths:
+      - ".bootstrap/READY"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Reconstruct and verify package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .bootstrap/chunk-* > /tmp/blueprintjs-skill.b64
+          base64 --decode /tmp/blueprintjs-skill.b64 > /tmp/blueprintjs-skill.tar.gz
+          echo "f887ab5dd5f7c16c3a8905b028ccea545aa6f716201ec351c44ae5369dab41bf  /tmp/blueprintjs-skill.tar.gz" | sha256sum --check --strict
+
+      - name: Publish files
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .bootstrap
+          rm -f .github/workflows/publish-skill.yml
+          tar -xzf /tmp/blueprintjs-skill.tar.gz -C .
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish complete BlueprintJS development skill"
+          git push
